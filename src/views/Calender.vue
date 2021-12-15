@@ -28,8 +28,16 @@
       <v-card>
         <v-card-title class="headline">貸出申請</v-card-title>
         <v-card-text>
-          <div>123123</div>
+          <div>{{ selectDate }}</div>
         </v-card-text>
+        <v-card-actions>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Close
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Save
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -45,9 +53,11 @@ export default {
   },
   data: () => ({
     dialog: false,
+    selectDate: "",
   }),
   methods: {
-    handleChooseDate() {
+    handleChooseDate(date) {
+      this.selectDate = date;
       this.dialog = true;
     },
   },
