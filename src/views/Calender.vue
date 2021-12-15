@@ -8,7 +8,6 @@
     <v-dialog v-model="showDialog" persistent max-width="960">
       <CalenderDialogContent
         :disabled-date="disabledDate"
-        :selected-date="selectedDate"
         :select-date="selectDate"
         @closeDialog="handleCloseDialog"
       />

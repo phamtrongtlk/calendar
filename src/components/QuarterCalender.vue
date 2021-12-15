@@ -6,6 +6,7 @@
       class="quarter-calender-item"
       :selected-date="selectedDate"
       :show-current="true"
+      :multiple="true"
       @chooseDate="handleChooseDate"
     />
     <QuarterCalenderItem
@@ -14,6 +15,7 @@
       :selected-date="selectedDate"
       class="quarter-calender-item"
       :show-current="false"
+      :multiple="true"
       @chooseDate="handleChooseDate"
     />
     <QuarterCalenderItem
@@ -22,6 +24,7 @@
       :selected-date="selectedDate"
       class="quarter-calender-item"
       :show-current="false"
+      :multiple="true"
       @chooseDate="handleChooseDate"
     />
   </div>

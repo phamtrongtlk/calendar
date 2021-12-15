@@ -6,7 +6,7 @@
       full-width
       locale="en"
       flat
-      multiple
+      :multiple="multiple"
       :show-current="showCurrent"
       class="item-datepicker"
       @click:date="chooseDate"
@@ -37,6 +37,10 @@ export default {
       default: () => [],
     },
     showCurrent: {
+      type: Boolean,
+      default: false,
+    },
+    multiple: {
       type: Boolean,
       default: false,
     },

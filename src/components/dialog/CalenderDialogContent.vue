@@ -5,22 +5,21 @@
       <v-card-text>
         <div>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="12" v-show="!showCalendar">
               <v-text-field
-                v-model="selectDate"
+                v-model="date"
                 append-icon="mdi-calendar"
                 readonly
                 @click="handleShowCalendar"
               />
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="12" v-if="showCalendar">
+          <v-row class="text-center">
+            <v-col cols="6" v-show="showCalendar">
               <QuarterCalenderItem
-                :current-date="currentDate"
+                :current-date="date"
                 :disabled-date="disabledDate"
-                :selected-date="selectedDate"
-                :show-current="true"
+                :selected-date="date"
                 @chooseDate="handleChooseDate"
               />
             </v-col>
@@ -55,22 +54,24 @@ export default {
       type: Array,
       default: () => [],
     },
-    selectedDate: {
-      type: Array,
-      default: () => [],
-    },
     selectDate: {
       type: String,
       default: "",
     },
+  },
+  mounted() {
+    this.setInit();
   },
   data: () => ({
     showCalendar: false,
     date: "",
   }),
   methods: {
+    setInit() {
+      this.date = [...this.date, this.selectDate];
+    },
     handleShowCalendar() {
-      this.dialog = true;
+      this.showCalendar = true;
     },
     handleSaveDialog(isClose) {
       if (isClose) {
@@ -81,6 +82,7 @@ export default {
       this.showCalendar = false;
     },
     handleChooseDate(date) {
+      this.showCalendar = false;
       this.date = date;
     },
   },
