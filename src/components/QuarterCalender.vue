@@ -1,23 +1,27 @@
 <template>
   <div class="quarter-calender">
     <QuarterCalenderItem
-      :current-date="date"
+      :current-date="currentDate"
       :disabled-date="disabledDate"
       class="quarter-calender-item"
+      :selected-date="selectedDate"
+      :show-current="true"
       @chooseDate="handleChooseDate"
     />
     <QuarterCalenderItem
       :current-date="dateSecondMonth"
       :disabled-date="disabledDate"
+      :selected-date="selectedDate"
       class="quarter-calender-item"
-      :hidePickedDate="true"
+      :show-current="false"
       @chooseDate="handleChooseDate"
     />
     <QuarterCalenderItem
       :current-date="dateThirdMonth"
       :disabled-date="disabledDate"
+      :selected-date="selectedDate"
       class="quarter-calender-item"
-      :hidePickedDate="true"
+      :show-current="false"
       @chooseDate="handleChooseDate"
     />
   </div>
@@ -34,11 +38,15 @@ export default {
 
   data: () => ({}),
   props: {
-    date: {
+    currentDate: {
       type: String,
       default: () => moment().format("YYYY-MM-DD"),
     },
     disabledDate: {
+      type: Array,
+      default: () => [],
+    },
+    selectedDate: {
       type: Array,
       default: () => [],
     },

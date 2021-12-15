@@ -1,12 +1,13 @@
 <template>
   <div class="quarter-calender-item">
     <v-date-picker
-      v-model="picker"
+      v-model="dates"
       no-title
       full-width
       locale="en"
       flat
-      :show-current="false"
+      multiple
+      :show-current="showCurrent"
       class="item-datepicker"
       @click:date="chooseDate"
       :allowed-dates="allowedDates"
@@ -31,25 +32,37 @@ export default {
       type: Array,
       default: () => [],
     },
-    hidePickedDate: {
+    selectedDate: {
+      type: Array,
+      default: () => [],
+    },
+    showCurrent: {
       type: Boolean,
       default: false,
     },
   },
   computed: {},
   data: () => ({
-    picker: null,
+    dates: [],
   }),
   mounted() {
     this.setInit();
   },
   methods: {
     setInit() {
-      this.picker = moment(this.currentDate).format("YYYY-MM-DD");
-      if (this.hidePickedDate)
-        setTimeout(() => {
-          this.picker = null;
-        }, 1);
+      const endDate = moment(this.currentDate).endOf("month");
+      const startDate = moment(this.currentDate).startOf("month");
+      if (!this.selectedDate) return;
+
+      this.selectedDate.forEach((item) => {
+        let date = moment(item);
+
+        let isInMonth =
+          startDate.year() == date.year() &&
+          startDate.month() == date.month() &&
+          endDate.date() >= date.date();
+        if (isInMonth) this.dates = [...this.dates, item];
+      });
     },
     allowedDates(date) {
       return !this.disabledDate.includes(date);
@@ -101,29 +114,34 @@ export default {
           font-size: 18px;
           font-weight: 600;
         }
-        tbody tr {
-          td {
-            width: 3.5vw;
-            height: 3.5vw;
-            .v-btn {
-              width: 100%;
-              height: 100%;
-            }
-            .v-btn--active {
-              border-radius: 4px;
-              border: 2px solid rgba(66, 132, 228, 255);
-            }
-            .v-btn__content {
-              color: rgba(65, 133, 228, 152);
-              font-size: 18px;
-              font-weight: 600;
-              padding: 5px;
-              width: 100%;
-              height: 100%;
-            }
-            .v-btn--disabled {
+        tbody {
+          tr {
+            td {
+              width: 3.5vw;
+              height: 3.5vw;
+              .v-btn {
+                width: 100%;
+                height: 100%;
+              }
               .v-btn__content {
-                color: rgba(96, 124, 131, 37);
+                color: rgba(65, 133, 228, 152);
+                font-size: 18px;
+                font-weight: 600;
+                padding: 5px;
+                width: 100%;
+                height: 100%;
+              }
+              .v-btn--active {
+                border-radius: 4px;
+                background-color: rgba(151, 169, 175, 128);
+                .v-btn__content {
+                  color: rgba(101, 122, 132, 255);
+                }
+              }
+              .v-btn--disabled {
+                .v-btn__content {
+                  color: rgba(96, 124, 131, 37);
+                }
               }
             }
           }
