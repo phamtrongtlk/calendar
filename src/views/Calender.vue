@@ -22,7 +22,16 @@
         '2022-01-31',
         '2022-02-01',
       ]"
+      @chooseDate="handleChooseDate"
     />
+    <v-dialog v-model="dialog" persistent max-width="960">
+      <v-card>
+        <v-card-title class="headline">貸出申請</v-card-title>
+        <v-card-text>
+          <div>123123</div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -33,6 +42,14 @@ export default {
   name: "Home",
   components: {
     QuarterCalender,
+  },
+  data: () => ({
+    dialog: false,
+  }),
+  methods: {
+    handleChooseDate() {
+      this.dialog = true;
+    },
   },
 };
 </script>

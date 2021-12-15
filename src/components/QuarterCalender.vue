@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     handleChooseDate(date) {
-      console.log(date);
+      this.$emit("chooseDate", date);
     },
   },
 };

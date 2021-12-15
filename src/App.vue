@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" data-app>
     <div id="nav">
       <router-link to="/calender">Calender</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
