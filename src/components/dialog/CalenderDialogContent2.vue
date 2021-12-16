@@ -5,7 +5,7 @@
       <v-card-text>
         <div>
           <v-row>
-            <v-col cols="6" v-show="!showCalendar">
+            <v-col cols="6" v-if="!showCalendar">
               <v-text-field
                 v-model="date"
                 append-icon="mdi-calendar"
@@ -15,9 +15,9 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col class="dialog-datepicker" cols="6" v-show="showCalendar">
+            <v-col class="dialog-datepicker" cols="6" v-if="showCalendar">
               <QuarterCalendarItem2
-                :select-date="selectDate"
+                :select-date="date"
                 :selected-date="selectedDate"
                 @changeDate="handleChangeDate"
               />
@@ -67,6 +67,7 @@ export default {
       this.date = this.selectDate;
     },
     handleShowCalendar() {
+      this.setInit();
       this.showCalendar = true;
     },
     handleSaveDialog(isCancel) {

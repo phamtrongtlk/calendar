@@ -59,7 +59,8 @@ export default {
           (item) => item !== this.backupSelectedNewDate
         );
         this.selectedDate.push(dateChange);
-        console.log(dateChange);
+
+        console.log(dateChange, this.selectedDate);
       }
       this.showDialog = false;
       this.backupSelectedNewDate = "";
@@ -80,5 +81,6 @@ export default {
 <style lang="scss" scoped>
 .calendar {
   max-width: 1440px;
+  margin: 0 auto;
 }
 </style>
