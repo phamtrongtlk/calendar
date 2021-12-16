@@ -1,7 +1,7 @@
 <template>
   <div class="calendar-dialog">
     <v-card>
-      <v-card-title class="dialog-headline">貸出申請</v-card-title>
+      <v-card-title class="dialog-headline">貸出希望日時を入力</v-card-title>
       <v-card-text>
         <div>
           <v-row>
@@ -19,6 +19,7 @@
               <QuarterCalendarItem2
                 :select-date="selectDate"
                 :selected-date="selectedDate"
+                @changeDate="handleChangeDate"
               />
             </v-col>
           </v-row>
@@ -76,7 +77,7 @@ export default {
       }
       this.showCalendar = false;
     },
-    handleChooseDate(date) {
+    handleChangeDate(date) {
       this.showCalendar = false;
       this.date = date;
     },

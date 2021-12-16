@@ -49,7 +49,7 @@ export default {
   filters: {
     dayFormat(date) {
       if (!date) return "";
-      const [year, month, day] = date.toString().split("-");
+      const day = date.toString().split("-").pop();
       return day;
     },
     headerMonthFormat(date) {

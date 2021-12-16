@@ -37,7 +37,7 @@ export default {
   filters: {
     dayFormat(date) {
       if (!date) return "";
-      const [year, month, day] = date.toString().split("-");
+      const day = date.toString().split("-").pop();
       return day;
     },
     headerMonthFormat(date) {
@@ -49,6 +49,8 @@ export default {
   data() {
     return {
       daysOfWeek: DAYS_OF_WEEK,
+      backupSelectedList: [],
+      backupSelectedNewDate: "",
     };
   },
   props: {
@@ -60,6 +62,10 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  mounted() {
+    this.backupSelectedNewDate = this.selectDate;
+    this.backupSelectedList = this.selectedDate;
   },
   computed: {
     daysOfCurrentMonth() {
@@ -92,7 +98,7 @@ export default {
       return moment(this.selectDate).format(DEFAULT_DATE_FORMAT) === date;
     },
     isSeletedDate(date) {
-      return this.selectedDate.includes(date);
+      return this.backupSelectedList.includes(date);
     },
     getDaysOfMonth(date) {
       const monthDate = moment(date, DEFAULT_DATE_FORMAT);
@@ -107,12 +113,14 @@ export default {
       return arrDays;
     },
     handleClickDate(date) {
-      if (this.isDisabledDate(date)) return;
-      if (this.isSeletedDate(date)) {
-        this.$emit("removeSelectedDate", date);
-        return;
-      }
-      this.$emit("selectNewDate", date);
+      if (this.isDisabledDate(date) || this.isSeletedDate(date)) return;
+      this.backupSelectedList = this.backupSelectedList.filter(
+        (item) => item !== this.backupSelectedNewDate
+      );
+      this.backupSelectedList.push(date);
+
+      this.backupSelectedNewDate = date;
+      this.$emit("changeDate", date);
     },
   },
 };
