@@ -26,6 +26,7 @@ export default {
   props: {
     currentDate: {
       type: String,
+      Array,
       default: "",
     },
     disabledDate: {

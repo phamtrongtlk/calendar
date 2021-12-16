@@ -1,11 +1,11 @@
 <template>
-  <div class="home">
+  <div class="calendar-dialog">
     <v-card>
-      <v-card-title class="headline">貸出申請</v-card-title>
+      <v-card-title class="dialog-headline">貸出申請</v-card-title>
       <v-card-text>
         <div>
           <v-row>
-            <v-col cols="12" v-show="!showCalendar">
+            <v-col cols="6" v-show="!showCalendar">
               <v-text-field
                 v-model="date"
                 append-icon="mdi-calendar"
@@ -14,24 +14,21 @@
               />
             </v-col>
           </v-row>
-          <v-row class="text-center">
-            <v-col cols="6" v-show="showCalendar">
-              <QuarterCalenderItem
-                :current-date="date"
-                :disabled-date="disabledDate"
+          <v-row>
+            <v-col class="dialog-datepicker" cols="6" v-show="showCalendar">
+              <QuarterCalendarItem2
+                :select-date="selectDate"
                 :selected-date="selectedDate"
-                class="quarter-calender-item"
-                @chooseDate="handleChooseDate"
               />
             </v-col>
           </v-row>
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="blue darken-1" text @click="handleSaveDialog(false)">
+        <v-btn color="blue darken-1" text @click="handleSaveDialog(true)">
           Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="handleSaveDialog(true)">
+        <v-btn color="blue darken-1" text @click="handleSaveDialog(false)">
           Save
         </v-btn>
       </v-card-actions>
@@ -40,17 +37,10 @@
 </template>
 
 <script>
-import moment from "moment";
-import QuarterCalenderItem from "@/components/QuarterCalenderItem.vue";
+import QuarterCalendarItem2 from "@/components/QuarterCalendarItem2.vue";
 export default {
-  components: {
-    QuarterCalenderItem,
-  },
+  components: { QuarterCalendarItem2 },
   props: {
-    currentDate: {
-      type: String,
-      default: () => moment().format("YYYY-MM-DD"),
-    },
     disabledDate: {
       type: Array,
       default: () => [],
@@ -78,11 +68,11 @@ export default {
     handleShowCalendar() {
       this.showCalendar = true;
     },
-    handleSaveDialog(isClose) {
-      if (isClose) {
-        this.$emit("closeDialog");
+    handleSaveDialog(isCancel) {
+      if (isCancel) {
+        this.$emit("cancelSelectDate");
       } else {
-        this.$emit("closeDialog", this.date);
+        this.$emit("saveSelectedDate", this.date);
       }
       this.showCalendar = false;
     },
@@ -93,3 +83,15 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.calendar-dialog {
+  .dialog-headline {
+    justify-content: center;
+  }
+  .dialog-datepicker {
+    margin: 0 auto;
+    border-radius: 4px;
+    border: 1px solid rgba(128, 128, 128, 0.23);
+  }
+}
+</style>

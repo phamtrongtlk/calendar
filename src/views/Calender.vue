@@ -9,6 +9,7 @@
       <CalenderDialogContent
         :disabled-date="disabledDate"
         :select-date="selectDate"
+        :selected-date="selectedDate"
         @closeDialog="handleCloseDialog"
       />
     </v-dialog>
@@ -53,6 +54,7 @@ export default {
   methods: {
     handleChooseDate(date) {
       this.selectDate = date;
+      this.selectedDate = [...this.selectedDate, date];
       this.showDialog = true;
     },
     handleCloseDialog(dateChange) {

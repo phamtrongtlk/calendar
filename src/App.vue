@@ -1,7 +1,8 @@
 <template>
   <div id="app" data-app>
     <div id="nav">
-      <router-link to="/calender">Calender</router-link>
+      <router-link to="/calender">Calender</router-link> |
+      <router-link to="/calender2">Calender2</router-link>
     </div>
     <router-view />
   </div>
